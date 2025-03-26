@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * 用户服务测试
  *
@@ -38,4 +36,16 @@ class UserServiceImplTest {
         Assertions.assertTrue(result);
     }
 
+    @Test
+    void userRegister() {
+        long result = userService.userRegister("aogYupi", "123", "123");
+        // 断言是否为-1
+        Assertions.assertEquals(-1, result);
+
+        result = userService.userRegister("yupi", "12345678", "12345678");
+        Assertions.assertEquals(-1, result);
+
+        result = userService.userRegister("youli", "66668888", "66668888");
+        Assertions.assertEquals(-1, result);
+    }
 }

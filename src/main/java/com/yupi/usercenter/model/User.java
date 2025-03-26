@@ -2,15 +2,19 @@ package com.yupi.usercenter.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.util.Date;
+
 import lombok.Data;
 
 /**
  * 用户表
+ *
  * @TableName user
  */
-@TableName(value ="user")
+@TableName(value = "user")
 @Data
 public class User {
     /**
@@ -72,5 +76,6 @@ public class User {
     /**
      * 是否删除
      */
+    @TableLogic
     private Integer isDelete;
 }
