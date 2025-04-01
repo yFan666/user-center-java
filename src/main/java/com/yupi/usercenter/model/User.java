@@ -1,20 +1,15 @@
 package com.yupi.usercenter.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
-
 import lombok.Data;
 
 /**
  * 用户表
- *
  * @TableName user
  */
-@TableName(value = "user")
+@TableName(value ="user")
 @Data
 public class User {
     /**
@@ -78,4 +73,9 @@ public class User {
      */
     @TableLogic
     private Integer isDelete;
+
+    /**
+     * 用户角色 0 - 普通用户 1 - 管理员
+     */
+    private Integer userRole;
 }

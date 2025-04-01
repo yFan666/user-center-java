@@ -1,5 +1,4 @@
 package com.yupi.usercenter.service.impl;
-import java.util.Date;
 
 import com.yupi.usercenter.model.User;
 import com.yupi.usercenter.service.UserService;

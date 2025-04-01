@@ -6,8 +6,12 @@ spring:
     url: jdbc:mysql://localhost:3306/sky-center
     username: root
     password: 666888
+  # session 失效时间
+  session:
+    timeout: 84600s
 server:
   port: 8080
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false

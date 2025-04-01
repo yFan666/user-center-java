@@ -1,7 +1,7 @@
 package com.yupi.usercenter.mapper;
 
-import com.yupi.usercenter.model.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yupi.usercenter.model.User;
 
 /**
 * @author Youli

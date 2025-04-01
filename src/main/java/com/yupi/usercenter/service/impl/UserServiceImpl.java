@@ -1,5 +1,4 @@
 package com.yupi.usercenter.service.impl;
-import java.util.Date;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -13,9 +12,10 @@ import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.security.MessageDigest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.yupi.usercenter.contant.UserConstant.URL_LOGIN_STATE;
 
 /**
  * 用户服务实现类
@@ -34,8 +34,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      * 盐值，混淆密码
      */
     private static final String SALT = "yupi";
-
-    private static final String URL_LOGIN_STATE = "userLoginState";
 
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
@@ -119,7 +117,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         queryWrapper.eq("userAccount", userAccount);
         queryWrapper.eq("userPassword", newPwd);
 
-        User user = userMapper.selectOne(queryWrapper);
+        User user = this.getOne(queryWrapper);
         // 用户不存在
         if (user == null) {
             log.info("user login failed, userAccount cannot match userPassword");
@@ -127,19 +125,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
 
         // 3. 脱敏
-        User cleanUser = new User();
-        cleanUser.setId(user.getId());
-        cleanUser.setUsername(user.getUsername());
-        cleanUser.setUserAccount(user.getUserAccount());
-        cleanUser.setAvatarUrl(user.getAvatarUrl());
-        cleanUser.setGender(user.getGender());
-        cleanUser.setEmail(user.getEmail());
-        cleanUser.setCreateTime(user.getCreateTime());
+        User safetyUser = this.getSafetyUser(user);
 
         // 4. 记录用户的登录态 getSession 是一个Map
-        request.getSession().setAttribute(URL_LOGIN_STATE, cleanUser);
+        request.getSession().setAttribute(URL_LOGIN_STATE, safetyUser);
 
-        return cleanUser;
+        return safetyUser;
+    }
+
+    /**
+     * 用户脱敏
+     * @param user
+     * @return
+     */
+    @Override
+    public User getSafetyUser(User user) {
+        User safetyUser = new User();
+        safetyUser.setId(user.getId());
+        safetyUser.setUsername(user.getUsername());
+        safetyUser.setUserAccount(user.getUserAccount());
+        safetyUser.setAvatarUrl(user.getAvatarUrl());
+        safetyUser.setGender(user.getGender());
+        safetyUser.setEmail(user.getEmail());
+        safetyUser.setUserRole(user.getUserRole());
+        safetyUser.setCreateTime(user.getCreateTime());
+
+        return safetyUser;
     }
 }
 
