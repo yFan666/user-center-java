@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UserCenterApplication {
 
     public static void main(String[] args) {
-        System.out.println("hello world");
         SpringApplication.run(UserCenterApplication.class, args);
     }
 

@@ -8,10 +8,7 @@ import com.yupi.usercenter.model.request.UserRegiesterRequest;
 import com.yupi.usercenter.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +24,8 @@ import static com.yupi.usercenter.contant.UserConstant.URL_LOGIN_STATE;
  *
  * @author Youli
  */
-@RestController("/user")
+@RestController()
+@RequestMapping("user")
 public class UserController {
 
     @Resource
@@ -40,7 +38,7 @@ public class UserController {
      * @author Youli
      * @date 2025/3/23 14:57
      */
-    @PostMapping("/register")
+    @PostMapping("register")
     public Long userRegister(@RequestBody UserRegiesterRequest userRegiesterRequest) {
         if (userRegiesterRequest == null) {
             return null;
@@ -66,7 +64,7 @@ public class UserController {
      * @author Youli
      * @date 2025/3/23 15:11
      */
-    @PostMapping("/login")
+    @PostMapping("login")
     public User userRegister(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
         if (userLoginRequest == null) {
             return null;
@@ -89,7 +87,7 @@ public class UserController {
      * @author Youli
      * @date 2025/3/23 15:16
      */
-    @GetMapping("/search")
+    @GetMapping("search")
     public List<User> userSearch(String username, HttpServletRequest request) {
 
         // 偷个懒 直接调用service层

@@ -11,6 +11,8 @@ spring:
     timeout: 84600s
 server:
   port: 8080
+  servlet:
+    context-path: /api
 
 mybatis-plus:
   configuration:
