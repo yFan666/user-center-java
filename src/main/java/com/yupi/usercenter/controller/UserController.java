@@ -80,6 +80,22 @@ public class UserController {
         return userService.doLogin(userAccount, userPassword, request);
     }
 
+    @GetMapping("current")
+    public User currentUser(HttpServletRequest request) {
+        Object userObj = request.getSession().getAttribute(URL_LOGIN_STATE);
+
+        User currentUser = (User) userObj;
+
+        if (currentUser == null) {
+            return null;
+        }
+
+        long userId = currentUser.getId();
+        // TODO: 校验用户是否合法
+        User user = userService.getById(userId);
+        return userService.getSafetyUser(user);
+    }
+
     /**
      * 用户查询
      * @param username
